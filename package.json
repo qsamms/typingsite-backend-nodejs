@@ -1,0 +1,22 @@
+{
+  "name": "typingsite-backend-nodejs",
+  "version": "1.0.0",
+  "description": "backend for typing site",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "connect-mongo": "^5.1.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.1",
+    "express-session": "^1.17.3",
+    "express.js": "^1.0.0",
+    "mongoose": "^8.0.3",
+    "pg": "^8.11.3",
+    "sequelize": "^6.36.0"
+  }
+}
