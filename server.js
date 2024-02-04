@@ -62,7 +62,25 @@ app.get("/api/user-stats", async (req, res) => {
         order: [["createdAt", "ASC"]],
       });
       const filteredGames = games.slice(-10);
-      res.status(200).json({ games: filteredGames });
+      const wpmList = games.map(game => game.wpm);
+      const accuracyList = games.map(game => game.accuracy);
+      const highestWPM = Math.max(...wpmList);
+      const sum = wpmList.reduceRight((acc, val) => acc + val, 0);
+      const highestAccuracy = Math.max(...accuracyList);
+      const accuracysum = accuracyList.reduce((acc, val ) => acc + val, 0);
+      let wordsSum = 0;
+      const totalWords = games.forEach(game => wordsSum += game.numWords)
+
+      const data = {
+        gamesCompleted: games.length,
+        highestWPM: highestWPM,
+        averageWPM: sum / wpmList.length,
+        highestAccuracy: highestAccuracy,
+        averageAccuracy: accuracysum / accuracyList.length,
+        totalWords: wordsSum,
+      }
+
+      res.status(200).json({ games: filteredGames, data: data });
     }
   } catch (err) {
     console.log(err);
@@ -115,6 +133,7 @@ app.post("/api/session", async (req, res) => {
         user: {
           username: user.username,
           email: user.email,
+          createdAt: user.createdAt,
         },
       });
     } else {
